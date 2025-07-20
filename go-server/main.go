@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"fmt"
 	"log"
 	"net/http"
@@ -13,7 +13,7 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "POST request successful")
 	name := r.FormValue("name")
-	address : r.FormValue("address")
+	address := r.FormValue("address")
 	fmt.Fprintf(w, "Name - %s\n", name)
 	fmt.Fprintf(w, "Address - %s\n", address)
 }
@@ -32,13 +32,13 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fileServer := http.fileServer(http.Dir("./static"))
-	http.Handle('/', fileServer)
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/", fileServer)
 	http.HandleFunc("/form", formHandler)
 	http.HandleFunc("/hello", helloHandler)
 
-	fmt.Printf("Starting server at port 8000\n")
-	if err := http.ListenAndServe(":8000", nil); err != nil {
+	fmt.Printf("Starting server at port 8080\n")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }
